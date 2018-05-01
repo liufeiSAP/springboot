@@ -20,4 +20,13 @@ public interface ArchiveRecordMapper {
                                         @Param("returnStart")String returnStart,
                                         @Param("returnEnd")String returnEnd);
 
+    @SelectProvider(type = RecordSqlProvide.class, method = "add")
+    void add(@Param("record")ArchiveRecord record);
+
+    @SelectProvider(type = RecordSqlProvide.class, method = "delete")
+    void delete(String id);
+
+    @SelectProvider(type = RecordSqlProvide.class, method = "update")
+    void update(@Param("record")ArchiveRecord record);
+
 }

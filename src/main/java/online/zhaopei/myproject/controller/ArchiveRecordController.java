@@ -5,10 +5,7 @@ import online.zhaopei.myproject.domain.ArchiveRecord;
 import online.zhaopei.myproject.domain.City;
 import online.zhaopei.myproject.service.ArchiveRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +24,17 @@ public class ArchiveRecordController {
                                                  @RequestParam(required=false) String returnStart,
                                                  @RequestParam(required=false) String returnEnd) {
         return this.archiveRecordService.findByCondition(refStart, refEnd, archiveNum, owner, user, status, returnStart, returnEnd);
+    }
+
+    @RequestMapping(value = "/archive/record", method = RequestMethod.POST)
+    public String addArchiveRecord(@RequestBody ArchiveRecord record) {
+        archiveRecordService.add(record);
+        return "ok";
+    }
+
+    @RequestMapping(value = "/archive/record", method = RequestMethod.PUT)
+    public String updateArchiveRecord(@RequestBody ArchiveRecord record) {
+        archiveRecordService.update(record);
+        return "ok";
     }
 }

@@ -1,5 +1,6 @@
 package online.zhaopei.myproject.sqlprovide;
 
+import online.zhaopei.myproject.domain.ArchiveRecord;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.jdbc.SQL;
 
@@ -35,6 +36,45 @@ public class RecordSqlProvide {
             }
 
             System.out.println(sql.toString());
+        }}.toString();
+    }
+
+    public String add(ArchiveRecord record) {
+        return new SQL() {{
+            //this.SELECT("*").FROM("archiverecord");
+            this.INSERT_INTO("archiverecord")
+                    .VALUES("referdate","#{record.referdate}")
+                    .VALUES("archiveNum","#{record.archiveNum}")
+                    .VALUES("owner","#{record.owner}")
+                    .VALUES("user","#{record.user}")
+                    .VALUES("status","#{record.status}")
+                    .VALUES("returndate","#{record.returndate}");
+        }}.toString();
+    }
+
+    public String update(ArchiveRecord record) {
+        return new SQL() {{
+           this.UPDATE("archiverecord")
+                   .SET("referdate =#{record.referdate}")
+                   .SET("archiveNum =#{record.archiveNum}")
+                   .SET("owner =#{record.owner}")
+                   .SET("user =#{record.user}")
+                   .SET("status =#{record.status}")
+                   .SET("returndate =#{record.returndate}")
+                   .WHERE("id = #{record.id}");
+        }}.toString();
+    }
+
+    public String delete(ArchiveRecord record) {
+        return new SQL() {{
+            this.UPDATE("archiverecord")
+                    .SET("referdate =#{record.referdate}")
+                    .SET("archiveNum =#{record.archiveNum}")
+                    .SET("owner =#{record.owner}")
+                    .SET("user =#{record.user}")
+                    .SET("status =#{record.status}")
+                    .SET("returndate =#{record.returndate}")
+                    .WHERE("id = #{record.id}");
         }}.toString();
     }
 }

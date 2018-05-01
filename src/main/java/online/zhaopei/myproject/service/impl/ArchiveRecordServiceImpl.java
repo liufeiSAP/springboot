@@ -22,4 +22,19 @@ public class ArchiveRecordServiceImpl implements ArchiveRecordService {
     public List<ArchiveRecord> findByCondition(String refStart, String refEnd, String archiveNum, String owner,String  user,String status, String returnStart,String returnEnd) {
         return this.recordMapper.findByCondition(refStart, refEnd, archiveNum, owner, user, status, returnStart, returnEnd);
     }
+
+    @Override
+    public void add(ArchiveRecord record) {
+        recordMapper.add(record);
+    }
+
+    @Override
+    public void delete(String id) {
+        recordMapper.delete(id);
+    }
+
+    @Override
+    public void update(ArchiveRecord record) {
+        recordMapper.update(record);
+    }
 }

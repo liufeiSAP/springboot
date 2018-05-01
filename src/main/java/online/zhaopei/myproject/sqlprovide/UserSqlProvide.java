@@ -9,7 +9,7 @@ public class UserSqlProvide {
 
     public String addUser(User user) {
         return new SQL() {{
-            this.INSERT_INTO("c")
+            this.INSERT_INTO("users")
                     .VALUES("username","#{user.username}")
                     .VALUES("email","#{user.email}")
                     .VALUES("password","#{user.password}")
