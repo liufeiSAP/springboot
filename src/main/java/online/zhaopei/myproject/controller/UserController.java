@@ -1,44 +1,40 @@
 package online.zhaopei.myproject.controller;
 
+import online.zhaopei.myproject.domain.ArchiveRecord;
+import online.zhaopei.myproject.domain.User;
+import online.zhaopei.myproject.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import online.zhaopei.myproject.domain.City;
-import online.zhaopei.myproject.service.Sender;
 
 @RestController
 public class UserController {
 
-	@Autowired
-	private Sender sender;
-	
-	@RequestMapping("/")
-	public String home() throws Exception {
-//		this.sender.send();
-		
-		City city = new City();
-		city.setId(111L);
-		city.setName("name-city");
-		city.setState("sss");
-		city.setCountry("country===");
-		//注释掉不再发送，自行开启
-//		this.sender.send(city); 
-		
-		return "home";
-	}
+    @Autowired
+    private UserService  userService;
 
-	@RequestMapping("/user/list")
-	public List<String> listUser() {
-		List<String> list = new ArrayList<String>();
-		list.add("s1");
-		list.add("s2");
-		list.add("s3");
-		list.add("s4");
+    @RequestMapping(value = "/users", method = RequestMethod.POST )
+    public String addUser(@RequestBody User user) {
+        userService.addUser(user);
+        return "OK";
+    }
 
-		return list;
-	}
+    @RequestMapping(value = "/users/{userId}", method = RequestMethod.DELETE )
+    public String deleteUser(@PathVariable String userId) {
+        userService.delete(userId);
+        return "ok";
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.PUT )
+    public String updateUser(@RequestBody User user) {
+        userService.update(user);
+        return "ok";
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.GET )
+    public List<User>  getUsers(@RequestParam(required=false) String userId) {
+        return userService.search(userId);
+    }
 }
