@@ -10,6 +10,14 @@ import org.apache.ibatis.annotations.SelectProvider;
 import java.util.List;
 
 public interface ArchiveRecordMapper {
-    @SelectProvider(type = RecordSqlProvide.class, method = "findByState")
-    List<ArchiveRecord> findByState(@Param("state") String state);
+    @SelectProvider(type = RecordSqlProvide.class, method = "findByCondition")
+    List<ArchiveRecord> findByCondition(@Param("refStart")String refStart,
+                                        @Param("refEnd")String refEnd,
+                                        @Param("archiveNum")String archiveNum,
+                                        @Param("owner")String owner,
+                                        @Param("user")String  user,
+                                        @Param("status")String status,
+                                        @Param("returnStart")String returnStart,
+                                        @Param("returnEnd")String returnEnd);
+
 }

@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ArchiveRecordService {
 
-    List<ArchiveRecord> findByState(String state);
+    List<ArchiveRecord> findByCondition(String refStart, String refEnd, String archiveNum, String owner,String  user,String status, String returnStart,String returnEnd);
 }

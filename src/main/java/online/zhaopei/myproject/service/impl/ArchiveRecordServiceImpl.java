@@ -19,7 +19,7 @@ public class ArchiveRecordServiceImpl implements ArchiveRecordService {
 
     @Override
     @Transactional(value = "primaryTxMan", readOnly = true)
-    public List<ArchiveRecord> findByState(String state) {
-        return this.recordMapper.findByState(state);
+    public List<ArchiveRecord> findByCondition(String refStart, String refEnd, String archiveNum, String owner,String  user,String status, String returnStart,String returnEnd) {
+        return this.recordMapper.findByCondition(refStart, refEnd, archiveNum, owner, user, status, returnStart, returnEnd);
     }
 }
