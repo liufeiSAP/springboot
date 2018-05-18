@@ -38,7 +38,7 @@ public class UserSqlProvide {
         return new SQL() {{
             SQL sql = this.SELECT("*").FROM("users");
             if (StringUtils.isNotBlank(userId)) {
-                sql.WHERE("id=#{userId}");
+                sql.WHERE("username=#{userId}");
             }
         }}.toString();
     }
