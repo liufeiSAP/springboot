@@ -61,7 +61,7 @@ public class RecordSqlProvide {
                    .SET("user =#{record.user}")
                    .SET("status =#{record.status}")
                    .SET("returndate =#{record.returndate}")
-                   .WHERE("id = #{record.id}");
+                   .WHERE("archiveNum = #{record.archiveNum}");
         }}.toString();
     }
 

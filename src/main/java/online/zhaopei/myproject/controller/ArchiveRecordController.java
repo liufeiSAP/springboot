@@ -3,6 +3,7 @@ package online.zhaopei.myproject.controller;
 import com.github.pagehelper.PageHelper;
 import online.zhaopei.myproject.domain.ArchiveRecord;
 import online.zhaopei.myproject.domain.City;
+import online.zhaopei.myproject.dtos.ArchiveQuery;
 import online.zhaopei.myproject.service.ArchiveRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,16 +15,11 @@ public class ArchiveRecordController {
     @Autowired
     private ArchiveRecordService archiveRecordService;
 
-    @RequestMapping(value = "/archive/record", method = RequestMethod.GET)
-    public List<ArchiveRecord> getArchivedRecord(@RequestParam(required=false) String refStart,
-                                                 @RequestParam(required=false) String refEnd,
-                                                 @RequestParam(required=false) String archiveNum,
-                                                 @RequestParam(required=false) String owner,
-                                                 @RequestParam(required=false) String user,
-                                                 @RequestParam(required=false) String status,
-                                                 @RequestParam(required=false) String returnStart,
-                                                 @RequestParam(required=false) String returnEnd) {
-        return this.archiveRecordService.findByCondition(refStart, refEnd, archiveNum, owner, user, status, returnStart, returnEnd);
+    @RequestMapping(value = "/archive/records", method = RequestMethod.POST )
+    @CrossOrigin
+    public List<ArchiveRecord> getArchivedRecord(@RequestBody ArchiveQuery query) {
+        return this.archiveRecordService.findByCondition(query.getRefStart(), query.getRefEnd(), query.getArchiveNum(),
+                query.getOwner(), query.getUser(), query.getStatus(), query.getReturnStart(), query.getReturnEnd());
     }
 
     @RequestMapping(value = "/archive/record", method = RequestMethod.POST)
@@ -32,7 +28,8 @@ public class ArchiveRecordController {
         return "ok";
     }
 
-    @RequestMapping(value = "/archive/record", method = RequestMethod.PUT)
+    @RequestMapping(value = "/archive/updaterecord", method = RequestMethod.POST)
+    @CrossOrigin
     public String updateArchiveRecord(@RequestBody ArchiveRecord record) {
         archiveRecordService.update(record);
         return "ok";
