@@ -4,8 +4,11 @@ import com.github.pagehelper.PageHelper;
 import online.zhaopei.myproject.domain.ArchiveRecord;
 import online.zhaopei.myproject.domain.City;
 import online.zhaopei.myproject.dtos.ArchiveQuery;
+import online.zhaopei.myproject.dtos.ResponseJson;
 import online.zhaopei.myproject.service.ArchiveRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,9 +26,20 @@ public class ArchiveRecordController {
     }
 
     @RequestMapping(value = "/archive/record", method = RequestMethod.POST)
-    public String addArchiveRecord(@RequestBody ArchiveRecord record) {
-        archiveRecordService.add(record);
-        return "ok";
+    @CrossOrigin
+    public ResponseEntity<ResponseJson> addArchiveRecord(@RequestBody ArchiveRecord record) {
+        try {
+            archiveRecordService.add(record);
+            ResponseJson response = new ResponseJson();
+            response.setStatus("1");
+            response.setMessage("success");
+            return new ResponseEntity<ResponseJson>(response, HttpStatus.OK );
+        } catch (Exception e) {
+            ResponseJson response = new ResponseJson();
+            response.setStatus("0");
+            response.setMessage("失败");
+            return new ResponseEntity<ResponseJson>(response, HttpStatus.valueOf(500));
+        }
     }
 
     @RequestMapping(value = "/archive/updaterecord", method = RequestMethod.POST)
