@@ -1,9 +1,12 @@
 package online.zhaopei.myproject.domain;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import java.io.Serializable;
 
 public class User implements Serializable {
     private int id;
+    @JsonProperty("name")
     private String username;
     private String email;
     private String password;

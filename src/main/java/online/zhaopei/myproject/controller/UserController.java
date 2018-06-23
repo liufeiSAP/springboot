@@ -25,9 +25,13 @@ public class UserController {
     private UserService  userService;
 
     @RequestMapping(value = "/users", method = RequestMethod.POST )
-    public String addUser(@RequestBody User user) {
+    @CrossOrigin
+    public ResponseEntity<ResponseJson> addUser(@RequestBody User user) {
         userService.addUser(user);
-        return "OK";
+        ResponseJson response = new ResponseJson();
+        response.setStatus("1");
+        response.setMessage("success");
+        return new ResponseEntity<ResponseJson>(response, HttpStatus.OK );
     }
 
 
