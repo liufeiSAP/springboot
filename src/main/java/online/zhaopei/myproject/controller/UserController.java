@@ -4,6 +4,7 @@ import online.zhaopei.myproject.domain.ArchiveRecord;
 import online.zhaopei.myproject.domain.User;
 import online.zhaopei.myproject.dtos.ResponseJson;
 import online.zhaopei.myproject.dtos.UserDto;
+import online.zhaopei.myproject.service.MailService;
 import online.zhaopei.myproject.service.UserService;
 import org.codehaus.jackson.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,14 @@ public class UserController {
     @Autowired
     private UserService  userService;
 
+    @Autowired
+    private MailService mailService;
+
     @RequestMapping(value = "/users", method = RequestMethod.POST )
     @CrossOrigin
     public ResponseEntity<ResponseJson> addUser(@RequestBody User user) {
+
+        mailService.sendMail();
         userService.addUser(user);
         ResponseJson response = new ResponseJson();
         response.setStatus("1");

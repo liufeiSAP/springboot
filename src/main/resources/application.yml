@@ -27,6 +27,12 @@ spring:
     username: username
     password: password
 
+  mail:
+    host: smtp.qq.com
+    username: 344501823@qq.com
+    password: slregekgovoocaeg #上面获取设置的授权码
+    default-encoding: UTF-8
+
 logging:
   file: springboot.log
   level:
@@ -36,3 +42,5 @@ logging:
     online:
       zhaopei:
         mypoject: TRACE
+
+
