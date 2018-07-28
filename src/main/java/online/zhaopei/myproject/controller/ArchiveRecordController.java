@@ -3,9 +3,11 @@ package online.zhaopei.myproject.controller;
 import com.github.pagehelper.PageHelper;
 import online.zhaopei.myproject.aop.ArchiveHistory;
 import online.zhaopei.myproject.domain.ArchiveRecord;
+import online.zhaopei.myproject.domain.ArchiveRecordHistory;
 import online.zhaopei.myproject.domain.City;
 import online.zhaopei.myproject.dtos.ArchiveQuery;
 import online.zhaopei.myproject.dtos.ResponseJson;
+import online.zhaopei.myproject.service.ArchiveRecordHistoryService;
 import online.zhaopei.myproject.service.ArchiveRecordService;
 import online.zhaopei.myproject.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +19,14 @@ import java.util.List;
 
 @RestController
 public class ArchiveRecordController {
-
     @Autowired
     private MailService mailService;
+
     @Autowired
     private ArchiveRecordService archiveRecordService;
+
+    @Autowired
+    private ArchiveRecordHistoryService archiveRecordHistoryService;
 
     @RequestMapping(value = "/archive/records", method = RequestMethod.POST )
     @CrossOrigin
@@ -55,5 +60,12 @@ public class ArchiveRecordController {
     public String updateArchiveRecord(@RequestBody ArchiveRecord record) {
         archiveRecordService.update(record);
         return "ok";
+    }
+
+    @RequestMapping(value = "/archive/recordsHis", method = RequestMethod.POST )
+    @CrossOrigin
+    public List<ArchiveRecordHistory> getArchivedRecordHis(@RequestBody ArchiveQuery query) {
+        return this.archiveRecordHistoryService.findByCondition(query.getRefStart(), query.getRefEnd(), query.getArchiveNum(),
+                query.getOwner(), query.getUser(), query.getStatus(), query.getReturnStart(), query.getReturnEnd());
     }
 }
