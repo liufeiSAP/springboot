@@ -32,7 +32,7 @@ public class UserController {
     @CrossOrigin
     public ResponseEntity<ResponseJson> addUser(@RequestBody User user) {
 
-        mailService.sendMail();
+       // mailService.sendMail();
         userService.addUser(user);
         ResponseJson response = new ResponseJson();
         response.setStatus("1");

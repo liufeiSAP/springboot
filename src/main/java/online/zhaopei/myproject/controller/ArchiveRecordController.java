@@ -6,6 +6,7 @@ import online.zhaopei.myproject.domain.City;
 import online.zhaopei.myproject.dtos.ArchiveQuery;
 import online.zhaopei.myproject.dtos.ResponseJson;
 import online.zhaopei.myproject.service.ArchiveRecordService;
+import online.zhaopei.myproject.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,9 @@ import java.util.List;
 
 @RestController
 public class ArchiveRecordController {
+
+    @Autowired
+    private MailService mailService;
     @Autowired
     private ArchiveRecordService archiveRecordService;
 
@@ -30,6 +34,7 @@ public class ArchiveRecordController {
     public ResponseEntity<ResponseJson> addArchiveRecord(@RequestBody ArchiveRecord record) {
         try {
             archiveRecordService.add(record);
+            mailService.sendMail(record);
             ResponseJson response = new ResponseJson();
             response.setStatus("1");
             response.setMessage("success");

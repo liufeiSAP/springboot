@@ -28,6 +28,9 @@ spring:
     password: password
 
   mail:
+    from: 344501823@qq.com
+    to: 344501823@qq.com
+    subject: 您有新的调档请求
     host: smtp.qq.com
     username: 344501823@qq.com
     password: slregekgovoocaeg #上面获取设置的授权码
