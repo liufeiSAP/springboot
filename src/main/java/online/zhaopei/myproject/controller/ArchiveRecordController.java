@@ -1,6 +1,7 @@
 package online.zhaopei.myproject.controller;
 
 import com.github.pagehelper.PageHelper;
+import online.zhaopei.myproject.aop.ArchiveHistory;
 import online.zhaopei.myproject.domain.ArchiveRecord;
 import online.zhaopei.myproject.domain.City;
 import online.zhaopei.myproject.dtos.ArchiveQuery;
@@ -31,6 +32,7 @@ public class ArchiveRecordController {
 
     @RequestMapping(value = "/archive/record", method = RequestMethod.POST)
     @CrossOrigin
+    @ArchiveHistory("增加调档记录")
     public ResponseEntity<ResponseJson> addArchiveRecord(@RequestBody ArchiveRecord record) {
         try {
             archiveRecordService.add(record);
@@ -49,6 +51,7 @@ public class ArchiveRecordController {
 
     @RequestMapping(value = "/archive/updaterecord", method = RequestMethod.POST)
     @CrossOrigin
+    @ArchiveHistory(value = "更改调档记录")
     public String updateArchiveRecord(@RequestBody ArchiveRecord record) {
         archiveRecordService.update(record);
         return "ok";
